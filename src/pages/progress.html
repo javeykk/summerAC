@@ -1,3 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夏季清凉服务挑战赛</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <script>
+        // 定义全局抽奖函数
+        window.openLotteryGame = function() {
+            console.log("抽奖函数被调用");
+            // 显示抽奖弹窗
+            const lotteryModal = document.getElementById('lotteryModal');
+            if (!lotteryModal) {
+                console.error("找不到lotteryModal元素");
+                return;
+            }
+            
+            lotteryModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            const items = document.querySelectorAll('.lottery-item');
+            const selectBtn = document.getElementById('selectPrizeBtn');
+            
+            // 重置所有格子状态
+            items.forEach(item => {
+                item.classList.remove('flashing', 'highlight', 'selected');
+                item.onclick = null;
+            });
+            
+            if (selectBtn) {
+                selectBtn.classList.remove('visible');
+            }
+            
+            // 开始闪烁动画
+            let flashingIndex = 0;
+            const flashingInterval = setInterval(() => {
+                items.forEach(item => item.classList.remove('flashing'));
+                items[flashingIndex].classList.add('flashing');
+                flashingIndex = (flashingIndex + 1) % items.length;
+            }, 200);
+            
+            // 3秒后停止闪烁，显示中奖结果
+            setTimeout(() => {
+                clearInterval(flashingInterval);
+                items.forEach(item => item.classList.remove('flashing'));
+                
+                // 随机选择2-3个奖品
+                const winCount = Math.random() > 0.5 ? 3 : 2;
+                const winIndexes = [];
+                
+                while(winIndexes.length < winCount) {
+                    const index = Math.floor(Math.random() * items.length);
+                    if (!winIndexes.includes(index)) {
+                        winIndexes.push(index);
+                    }
+                }
+                
+                // 高亮显示中奖奖品
+                winIndexes.forEach(index => {
+                    items[index].classList.add('highlight');
+                    
+                    // 添加点击事件
+                    items[index].onclick = function() {
+                        items.forEach(item => item.classList.remove('selected'));
+                        this.classList.add('selected');
+                        if (selectBtn) {
+                            selectBtn.classList.add('visible');
+                        }
+                    };
+                });
+                
+                // 添加选择按钮点击事件
+                if (selectBtn) {
+                    selectBtn.onclick = function() {
+                        const selectedItem = document.querySelector('.lottery-item.selected');
+                        if (selectedItem) {
+                            const prizeName = selectedItem.dataset.prize;
+                            const prizeValue = selectedItem.dataset.value;
+                            
+                            alert(`恭喜您获得 ${prizeName}：${prizeValue}！`);
+                            lotteryModal.classList.remove('active');
+                            document.body.style.overflow = '';
+                        } else {
+                            alert('请选择一个奖品');
+                        }
+                    };
+                }
+                
+            }, 3000);
+        };
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("页面加载完成，初始化抽奖功能");
+            
+            // 为抽奖按钮添加事件
+            const lotteryBtn = document.getElementById('lottery-btn');
+            if (lotteryBtn) {
+                lotteryBtn.addEventListener('click', window.openLotteryGame);
+            }
+            
+            // 为模态框背景点击添加关闭事件
+            const lotteryModal = document.getElementById('lotteryModal');
+            if (lotteryModal) {
+                lotteryModal.addEventListener('click', function(e) {
+                    if (e.target === lotteryModal) {
+                        lotteryModal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
 <style>
 /* 所有控制用的复选框默认隐藏 */
 .toggle-control {
@@ -39,6 +156,217 @@
 
 .show-less {
   display: none;
+}
+
+/* 模态框样式 */
+.prize-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.prize-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.prize-modal-content {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(20px);
+  transition: transform 0.3s;
+}
+
+.prize-modal.active .prize-modal-content {
+  transform: translateY(0);
+}
+
+.my-prizes-badge {
+  position: relative;
+  background-color: #FEF2EE;
+  color: #F26233;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.my-prizes-badge:active {
+  transform: scale(0.96);
+}
+
+.my-prizes-badge i {
+  margin-right: 4px;
+}
+
+/* 九宫格抽奖相关样式 */
+.lottery-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.lottery-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lottery-grid {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  padding: 15px;
+  background: linear-gradient(135deg, #ff7a45, #F26233);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(242, 98, 51, 0.3);
+}
+
+.lottery-item {
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.lottery-item.flashing {
+  animation: flash 0.5s infinite alternate;
+  box-shadow: 0 0 12px rgba(242, 98, 51, 0.8);
+  border: 3px solid #E84E1B;
+  transform: scale(1.05);
+}
+
+.lottery-item.highlight {
+  background: #FFCBB7;
+  border: 3px solid #E84E1B;
+  transform: scale(1.08);
+  box-shadow: 0 0 15px rgba(242, 98, 51, 0.85);
+}
+
+.lottery-item.selected {
+  background: #E84E1B;
+  border: 3px solid #FF8B6A;
+  box-shadow: 0 0 20px rgba(242, 98, 51, 0.9);
+}
+
+.lottery-item.selected i,
+.lottery-item.selected p {
+  color: white;
+  font-weight: bold;
+}
+
+.lottery-item i {
+  font-size: 24px;
+  color: #F26233;
+  margin-bottom: 5px;
+}
+
+.lottery-item p {
+  font-size: 12px;
+  color: #333;
+  font-weight: 500;
+  margin: 0;
+}
+
+.lottery-title {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.lottery-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lottery-footer {
+  position: absolute;
+  bottom: -70px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.lottery-select-btn {
+  background: #F26233;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(242, 98, 51, 0.3);
+  cursor: pointer;
+  display: none;
+}
+
+.lottery-select-btn.visible {
+  display: block;
+}
+
+@keyframes flash {
+  0% {
+    background: #fff;
+    transform: scale(1);
+  }
+  100% {
+    background: #FFB296;
+    transform: scale(1.05);
+  }
 }
 </style>
 
@@ -85,7 +413,7 @@
                         <h3 class="text-sm font-medium text-gray-800">保持优秀级别，有机会获得终极大奖！</h3>
                     </div>
                     <div class="mt-2">
-                        <p class="text-xs text-gray-600 mb-2">活动结束时，您将有机会获得以下奖励之一：</p>
+                        <p class="text-xs text-gray-600 mb-2">活动结束时，您将在高级抽奖池中抽取以下奖励：</p>
                         
                         <style>
                         @keyframes slide {
@@ -151,7 +479,7 @@
                         </label>
                     </div>
                     
-                    <div class="mt-2 ml-6 honor-details">
+                    <div class="mt-2 honor-details">
                         <div class="space-y-2.5">
                             <div class="flex items-center p-2 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border border-green-200">
                                 <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center mr-2 flex-shrink-0">
@@ -159,7 +487,7 @@
                                 </div>
                                 <div>
                                     <p class="text-xs font-medium text-gray-800">80-100分：<span class="text-green-600 font-bold">"优秀"级别</span></p>
-                                    <p class="text-xs text-gray-600">可获高级抽奖池奖励</p>
+                                    <p class="text-xs text-gray-600">可获高级抽奖池奖励，最高1000元现金</p>
                                 </div>
                             </div>
                             
@@ -169,7 +497,7 @@
                                 </div>
                                 <div>
                                     <p class="text-xs font-medium text-gray-800">60-79分：<span class="text-blue-600 font-bold">"良好"级别</span></p>
-                                    <p class="text-xs text-gray-600">可获中级抽奖池奖励</p>
+                                    <p class="text-xs text-gray-600">可获中级抽奖池奖励，最高500元现金</p>
                                 </div>
                             </div>
                             
@@ -179,7 +507,7 @@
                                 </div>
                                 <div>
                                     <p class="text-xs font-medium text-gray-800">低于60分：<span class="text-gray-600 font-bold">"一般"级别</span></p>
-                                    <p class="text-xs text-gray-600">仅可获初级抽奖池奖励</p>
+                                    <p class="text-xs text-gray-600">仅可获初级抽奖池奖励，最高100元现金</p>
                                 </div>
                             </div>
                         </div>
@@ -233,7 +561,10 @@
                         <i class="ri-gift-2-line text-didi-orange text-lg mr-2"></i>
                         <h2 class="text-base font-medium text-gray-800">我的抽奖机会</h2>
                     </div>
-                    <span class="text-didi-orange font-bold text-base">2次</span>
+                    <button onclick="document.getElementById('myPrizesModal').classList.add('active'); document.body.style.overflow='hidden';" class="my-prizes-badge">
+                        <i class="ri-award-line"></i>
+                        <span>我的奖品</span>
+                    </button>
                 </div>
                 
                 <!-- 热门奖品展示 -->
@@ -252,7 +583,81 @@
                     </div>
                 </div>
 
-                <button class="w-full py-3 rounded-lg bg-didi-orange text-white font-medium text-sm shadow-md flex items-center justify-center">
+                <button onclick="
+                    // 显示抽奖弹窗
+                    var lotteryModal = document.getElementById('lotteryModal');
+                    lotteryModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    
+                    // 获取所有格子
+                    var items = document.querySelectorAll('.lottery-item');
+                    var selectBtn = document.getElementById('selectPrizeBtn');
+                    
+                    // 重置状态
+                    items.forEach(function(item) {
+                        item.classList.remove('flashing', 'highlight', 'selected');
+                        item.onclick = null;
+                    });
+                    selectBtn.classList.remove('visible');
+                    
+                    // 闪烁动画
+                    var flashingIndex = 0;
+                    var flashingInterval = setInterval(function() {
+                        items.forEach(function(item) { 
+                            item.classList.remove('flashing');
+                        });
+                        items[flashingIndex].classList.add('flashing');
+                        flashingIndex = (flashingIndex + 1) % items.length;
+                    }, 200);
+                    
+                    // 3秒后停止闪烁
+                    setTimeout(function() {
+                        clearInterval(flashingInterval);
+                        items.forEach(function(item) {
+                            item.classList.remove('flashing');
+                        });
+                        
+                        // 随机选择奖品
+                        var winCount = Math.random() > 0.5 ? 3 : 2;
+                        var winIndexes = [];
+                        
+                        while(winIndexes.length < winCount) {
+                            var index = Math.floor(Math.random() * items.length);
+                            if (winIndexes.indexOf(index) === -1) {
+                                winIndexes.push(index);
+                            }
+                        }
+                        
+                        // 高亮中奖
+                        winIndexes.forEach(function(index) {
+                            items[index].classList.add('highlight');
+                            
+                            // 点击事件
+                            items[index].onclick = function() {
+                                items.forEach(function(it) {
+                                    it.classList.remove('selected');
+                                });
+                                this.classList.add('selected');
+                                selectBtn.classList.add('visible');
+                            };
+                        });
+                        
+                        // 选择按钮事件
+                        selectBtn.onclick = function() {
+                            var selectedItem = document.querySelector('.lottery-item.selected');
+                            if (selectedItem) {
+                                var prizeName = selectedItem.getAttribute('data-prize');
+                                var prizeValue = selectedItem.getAttribute('data-value');
+                                
+                                alert('恭喜您获得 ' + prizeName + '：' + prizeValue + '！');
+                                lotteryModal.classList.remove('active');
+                                document.body.style.overflow = '';
+                            } else {
+                                alert('请选择一个奖品');
+                            }
+                        };
+                    }, 3000);
+                " class="w-full py-3 rounded-lg bg-didi-orange text-white font-medium text-sm shadow-md flex items-center justify-center">
                     <i class="ri-gift-line mr-2"></i>
                     <span>立即抽奖 (2次机会)</span>
                 </button>
@@ -262,7 +667,7 @@
             <div class="bg-white rounded-xl p-4 border border-gray-100">
                 <div class="flex justify-between items-center mb-3">
                     <div class="flex items-center">
-                        <i class="ri-list-check-line text-didi-orange text-lg mr-2"></i>
+                        <i class="ri-ticket-line text-didi-orange text-lg mr-2"></i>
                         <h2 class="text-base font-medium text-gray-800">抽奖任务</h2>
                     </div>
                 </div>
@@ -300,7 +705,7 @@
                                 <div class="ml-3">
                                     <h3 class="text-sm font-medium text-gray-800">完成周期任务+2次</h3>
                                     <p class="text-xs text-gray-600 mt-0.5">每周完成20单且0空调差评</p>
-                                    <p class="text-xs text-gray-600 mt-1">已完成：15单</p>
+                                    <p class="text-xs text-gray-600 mt-1">已完成：<span class="text-didi-orange font-medium">15</span>单</p>
                                 </div>
                             </div>
                             <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
@@ -317,13 +722,10 @@
                                 <div class="ml-3">
                                     <h3 class="text-sm font-medium text-gray-800">连续达成2周+3次</h3>
                                     <p class="text-xs text-gray-600 mt-0.5">连续2周达成周期任务</p>
+                                    <p class="text-xs text-gray-600 mt-1">已完成：<span class="text-didi-orange font-medium">1</span>周</p>
                                 </div>
                             </div>
                             <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
-                        </div>
-                        <div class="mt-2 flex space-x-1.5">
-                            <div class="w-6 h-6 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white">1</div>
-                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">2</div>
                         </div>
                     </div>
                 
@@ -454,4 +856,227 @@
             </div>
         </div>
     </div>
-</div> 
+
+    <!-- 我的奖品模态框 -->
+    <div id="myPrizesModal" class="prize-modal">
+        <div class="prize-modal-content">
+            <!-- 模态框头部 -->
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-medium text-gray-800">我的奖品</h3>
+                <button onclick="document.getElementById('myPrizesModal').classList.remove('active'); document.body.style.overflow='';" class="text-gray-500 p-1">
+                    <i class="ri-close-line text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- 模态框内容区 -->
+            <div class="overflow-y-auto p-4" style="max-height: 60vh;">
+                <div class="space-y-3">
+                    <!-- 示例奖品1 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                                <i class="ri-money-cny-circle-line text-didi-orange text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-800">现金红包</h4>
+                                <p class="text-xs text-gray-500">2025.07.15 抽中</p>
+                            </div>
+                        </div>
+                        <span class="text-didi-orange font-bold">￥15.88</span>
+                    </div>
+                    
+                    <!-- 示例奖品2 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                <i class="ri-coupon-line text-blue-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-800">免佣卡</h4>
+                                <p class="text-xs text-gray-500">2025.07.08 抽中</p>
+                            </div>
+                        </div>
+                        <span class="text-blue-500 font-bold">3天</span>
+                    </div>
+                    
+                    <!-- 示例奖品3 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                <i class="ri-bar-chart-line text-green-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-800">服务分</h4>
+                                <p class="text-xs text-gray-500">2025.07.01 抽中</p>
+                            </div>
+                        </div>
+                        <span class="text-green-500 font-bold">+5分</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 模态框底部 -->
+            <div class="p-4 border-t border-gray-200">
+                <button onclick="document.getElementById('myPrizesModal').classList.remove('active'); document.body.style.overflow='';" class="w-full py-2.5 rounded-lg bg-didi-orange text-white font-medium">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加九宫格抽奖弹窗 -->
+    <div id="lotteryModal" class="lottery-modal">
+        <div class="relative">
+            <div class="lottery-title">幸运抽奖</div>
+            <div class="lottery-close" onclick="document.getElementById('lotteryModal').classList.remove('active'); document.body.style.overflow='';">
+                <i class="ri-close-line"></i>
+            </div>
+            
+            <div class="lottery-grid" id="lotteryGrid">
+                <!-- 九宫格奖品，9个格子 -->
+                <div class="lottery-item" data-prize="现金红包" data-value="¥5">
+                    <i class="ri-money-cny-circle-line"></i>
+                    <p>¥5现金</p>
+                </div>
+                <div class="lottery-item" data-prize="免佣卡" data-value="1天">
+                    <i class="ri-coupon-line"></i>
+                    <p>1天免佣卡</p>
+                </div>
+                <div class="lottery-item" data-prize="现金红包" data-value="¥10">
+                    <i class="ri-money-cny-circle-line"></i>
+                    <p>¥10现金</p>
+                </div>
+                <div class="lottery-item" data-prize="服务分" data-value="+2分">
+                    <i class="ri-bar-chart-line"></i>
+                    <p>+2服务分</p>
+                </div>
+                <div class="lottery-item" data-prize="现金红包" data-value="¥30">
+                    <i class="ri-money-cny-circle-line"></i>
+                    <p>¥30现金</p>
+                </div>
+                <div class="lottery-item" data-prize="免佣卡" data-value="3天">
+                    <i class="ri-coupon-line"></i>
+                    <p>3天免佣卡</p>
+                </div>
+                <div class="lottery-item" data-prize="服务分" data-value="+5分">
+                    <i class="ri-bar-chart-line"></i>
+                    <p>+5服务分</p>
+                </div>
+                <div class="lottery-item" data-prize="现金红包" data-value="¥15">
+                    <i class="ri-money-cny-circle-line"></i>
+                    <p>¥15现金</p>
+                </div>
+                <div class="lottery-item" data-prize="免佣卡" data-value="7天">
+                    <i class="ri-coupon-line"></i>
+                    <p>7天免佣卡</p>
+                </div>
+            </div>
+            
+            <div class="lottery-footer">
+                <button id="selectPrizeBtn" class="lottery-select-btn">选择奖品</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 我的奖品模态框控制函数
+function togglePrizeModal() {
+  const modal = document.getElementById('myPrizesModal');
+  if (modal) {
+    modal.classList.toggle('active');
+    if (modal.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+}
+
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+  // 为背景点击添加关闭事件
+  const modal = document.getElementById('myPrizesModal');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        togglePrizeModal();
+      }
+    });
+  }
+});
+
+// 九宫格抽奖功能
+function startLottery() {
+    // 显示抽奖弹窗
+    const lotteryModal = document.getElementById('lotteryModal');
+    lotteryModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    const items = document.querySelectorAll('.lottery-item');
+    const selectBtn = document.getElementById('selectPrizeBtn');
+    
+    // 重置所有格子状态
+    items.forEach(item => {
+        item.classList.remove('flashing', 'highlight', 'selected');
+        item.onclick = null;
+    });
+    
+    selectBtn.classList.remove('visible');
+    
+    // 开始闪烁动画
+    let flashingIndex = 0;
+    const flashingInterval = setInterval(() => {
+        items.forEach(item => item.classList.remove('flashing'));
+        items[flashingIndex].classList.add('flashing');
+        flashingIndex = (flashingIndex + 1) % items.length;
+    }, 200);
+    
+    // 3秒后停止闪烁，显示中奖结果
+    setTimeout(() => {
+        clearInterval(flashingInterval);
+        items.forEach(item => item.classList.remove('flashing'));
+        
+        // 随机选择2-3个奖品
+        const winCount = Math.random() > 0.5 ? 3 : 2;
+        const winIndexes = [];
+        
+        while(winIndexes.length < winCount) {
+            const index = Math.floor(Math.random() * items.length);
+            if (!winIndexes.includes(index)) {
+                winIndexes.push(index);
+            }
+        }
+        
+        // 高亮显示中奖奖品
+        winIndexes.forEach(index => {
+            items[index].classList.add('highlight');
+            
+            // 添加点击事件
+            items[index].onclick = function() {
+                items.forEach(item => item.classList.remove('selected'));
+                this.classList.add('selected');
+                selectBtn.classList.add('visible');
+            };
+        });
+        
+        // 添加选择按钮点击事件
+        selectBtn.onclick = function() {
+            const selectedItem = document.querySelector('.lottery-item.selected');
+            if (selectedItem) {
+                const prizeName = selectedItem.dataset.prize;
+                const prizeValue = selectedItem.dataset.value;
+                
+                alert(`恭喜您获得 ${prizeName}：${prizeValue}！`);
+                lotteryModal.classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                alert('请选择一个奖品');
+            }
+        };
+        
+    }, 3000);
+}
+</script> 
+</body>
+</html> 
