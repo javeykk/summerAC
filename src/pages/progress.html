@@ -132,14 +132,20 @@
   transform: rotate(180deg);
 }
 
-/* 默认隐藏详情内容 */
+/* 默认显示详情内容，而不是隐藏 */
 .honor-details {
-  display: none;
+  display: block;
+}
+
+/* 默认旋转图标 */
+.honor-label .honor-icon {
+  transform: rotate(180deg);
 }
 
 /* 任务展开/折叠控制 */
 #tasks-toggle:checked ~ .hidden-tasks {
   display: block;
+  margin-top: 0; /* 移除之前添加的上边距 */
 }
 
 #tasks-toggle:checked ~ .tasks-label .show-more {
@@ -152,6 +158,7 @@
 
 .hidden-tasks {
   display: none;
+  margin-top: 0; /* 移除之前添加的上边距 */
 }
 
 .show-less {
@@ -368,6 +375,72 @@
     transform: scale(1.05);
   }
 }
+
+/* 添加邀请模态框样式 */
+.invite-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.invite-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.invite-modal-content {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 320px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(20px);
+  transition: transform 0.3s;
+}
+
+.invite-modal.active .invite-modal-content {
+  transform: translateY(0);
+}
+
+.invite-option {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+.invite-option:active {
+  background-color: #f9f9f9;
+}
+
+.invite-option i {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.invite-option.wechat i {
+  color: #07C160;
+}
+
+.invite-option.link i {
+  color: #1890ff;
+}
+
+.invite-option.poster i {
+  color: #F26233;
+}
 </style>
 
 <div class="h-full flex flex-col bg-gray-50">
@@ -391,7 +464,7 @@
             <!-- 模块一：我的荣誉和终极大奖 -->
             <div class="bg-white rounded-xl p-4 border border-gray-100">
                 <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-base font-medium text-gray-800">我的清凉服务荣誉</h2>
+                    <h2 class="text-base font-medium text-gray-800">我的清凉服务等级</h2>
                     <span class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded-full font-medium border border-green-100">优秀级别</span>
                 </div>
                 
@@ -467,12 +540,12 @@
                 
                 <!-- 荣誉说明 - 使用纯CSS控制 -->
                 <div class="bg-gray-50 rounded-lg p-3 mb-3">
-                    <input type="checkbox" id="honor-toggle" class="toggle-control">
+                    <input type="checkbox" id="honor-toggle" class="toggle-control" checked>
                     
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <i class="ri-information-line text-lg mr-2 text-didi-orange"></i>
-                            <p class="text-xs font-medium text-gray-700">您当前荣誉值: <span class="font-bold text-didi-orange">100/100分</span></p>
+                            <p class="text-xs font-medium text-gray-700">您当前清凉值: <span class="font-bold text-didi-orange">100/100分</span></p>
                         </div>
                         <label for="honor-toggle" class="text-gray-500 honor-label">
                             <i class="ri-arrow-down-s-line honor-icon"></i>
@@ -491,7 +564,7 @@
                                 </div>
                             </div>
                             
-                            <div class="flex items-center p-2 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg border border-blue-200">
+                            <div class="flex items-center p-2 bg-gradient-to-r froqing'liang-50 to-blue-100 rounded-lg border border-blue-200">
                                 <div class="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
                                     <i class="ri-medal-line text-white text-xs"></i>
                                 </div>
@@ -518,7 +591,7 @@
                 <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mb-3">
                     <div class="flex items-center mb-2">
                         <i class="ri-error-warning-line text-lg mr-2 text-didi-orange"></i>
-                        <h3 class="text-sm font-medium text-gray-800">荣誉值扣分项</h3>
+                        <h3 class="text-sm font-medium text-gray-800">清凉值规则</h3>
                     </div>
                     
                     <div class="flex items-center justify-between py-1 border-b border-gray-200">
@@ -688,7 +761,7 @@
                                 </div>
                             </div>
                             <div>
-                                <button class="text-xs bg-didi-orange text-white px-3 py-1.5 rounded-full">
+                                <button onclick="document.getElementById('inviteModal').classList.add('active'); document.body.style.overflow='hidden';" class="text-xs bg-didi-orange text-white px-3 py-1.5 rounded-full">
                                     去邀请
                                 </button>
                             </div>
@@ -729,66 +802,46 @@
                         </div>
                     </div>
                 
-                    <!-- 任务展开控制 -->
-                    <input type="checkbox" id="tasks-toggle" class="toggle-control">
-                    
-                    <!-- 更多任务按钮 -->
-                    <div class="flex justify-center mt-3">
-                        <label for="tasks-toggle" class="tasks-label">
-                            <div class="show-more text-xs bg-gray-50 text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 flex items-center cursor-pointer">
-                                <span>查看更多任务</span>
-                                <i class="ri-arrow-down-s-line ml-1"></i>
+                    <!-- 任务3-2: 连续达成3周 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
+                                    <i class="ri-medal-line text-white"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-gray-800">连续达成3周+4次</h3>
+                                    <p class="text-xs text-gray-600 mt-0.5">连续3周达成周期任务</p>
+                                </div>
                             </div>
-                            <div class="show-less text-xs bg-gray-50 text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 flex items-center cursor-pointer">
-                                <span>收起任务</span>
-                                <i class="ri-arrow-up-s-line ml-1"></i>
-                            </div>
-                        </label>
+                            <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
+                        </div>
+                        <div class="mt-2 flex space-x-1.5">
+                            <div class="w-6 h-6 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white">1</div>
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">2</div>
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">3</div>
+                        </div>
                     </div>
                     
-                    <!-- 隐藏的任务 -->
-                    <div class="hidden-tasks">
-                        <!-- 任务3-2: 连续达成3周 -->
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mt-3">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
-                                        <i class="ri-medal-line text-white"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                        <h3 class="text-sm font-medium text-gray-800">连续达成3周+4次</h3>
-                                        <p class="text-xs text-gray-600 mt-0.5">连续3周达成周期任务</p>
-                                    </div>
+                    <!-- 任务3-3: 连续达成4周 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
+                                    <i class="ri-trophy-line text-white"></i>
                                 </div>
-                                <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-gray-800">连续达成4周+5次</h3>
+                                    <p class="text-xs text-gray-600 mt-0.5">连续4周达成周期任务</p>
+                                </div>
                             </div>
-                            <div class="mt-2 flex space-x-1.5">
-                                <div class="w-6 h-6 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white">1</div>
-                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">2</div>
-                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">3</div>
-                            </div>
+                            <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
                         </div>
-                        
-                        <!-- 任务3-3: 连续达成4周 -->
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mt-3">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
-                                        <i class="ri-trophy-line text-white"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                        <h3 class="text-sm font-medium text-gray-800">连续达成4周+5次</h3>
-                                        <p class="text-xs text-gray-600 mt-0.5">连续4周达成周期任务</p>
-                                    </div>
-                                </div>
-                                <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
-                            </div>
-                            <div class="mt-2 flex space-x-1.5">
-                                <div class="w-6 h-6 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white">1</div>
-                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">2</div>
-                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">3</div>
-                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">4</div>
-                            </div>
+                        <div class="mt-2 flex space-x-1.5">
+                            <div class="w-6 h-6 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white">1</div>
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">2</div>
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">3</div>
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">4</div>
                         </div>
                     </div>
                 </div>
@@ -977,6 +1030,46 @@
             </div>
         </div>
     </div>
+
+    <!-- 添加邀请分享模态框 -->
+    <div id="inviteModal" class="invite-modal">
+        <div class="invite-modal-content">
+            <!-- 模态框头部 -->
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-medium text-gray-800">邀请好友</h3>
+                <button onclick="document.getElementById('inviteModal').classList.remove('active'); document.body.style.overflow='';" class="text-gray-500 p-1">
+                    <i class="ri-close-line text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- 邀请选项 -->
+            <div>
+                <div class="invite-option wechat" onclick="shareToWechat()">
+                    <i class="ri-wechat-fill"></i>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">微信邀请</p>
+                        <p class="text-xs text-gray-500 mt-0.5">分享给微信好友或群聊</p>
+                    </div>
+                </div>
+                
+                <div class="invite-option link" onclick="copyInviteLink()">
+                    <i class="ri-link"></i>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">复制链接</p>
+                        <p class="text-xs text-gray-500 mt-0.5">复制邀请链接分享给好友</p>
+                    </div>
+                </div>
+                
+                <div class="invite-option poster" onclick="generatePoster()">
+                    <i class="ri-image-line"></i>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">生成海报</p>
+                        <p class="text-xs text-gray-500 mt-0.5">生成专属邀请海报</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -1076,6 +1169,27 @@ function startLottery() {
         };
         
     }, 3000);
+}
+
+// 邀请分享功能
+function shareToWechat() {
+    alert('调用微信分享接口');
+    document.getElementById('inviteModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function copyInviteLink() {
+    // 模拟复制链接
+    alert('邀请链接已复制到剪贴板');
+    document.getElementById('inviteModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function generatePoster() {
+    alert('正在生成邀请海报...');
+    // 这里可以添加实际的海报生成和预览逻辑
+    document.getElementById('inviteModal').classList.remove('active');
+    document.body.style.overflow = '';
 }
 </script> 
 </body>
