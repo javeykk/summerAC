@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面不存在 - 重定向中</title>
+    <script>
+        // 在GitHub Pages上，直接访问子路径会导致404
+        // 这个页面会自动重定向到主页，然后由前端路由处理
+        
+        // 获取当前访问的路径
+        var pathSegments = window.location.pathname.split('/');
+        var repoName = '';
+        
+        // 如果不是在本地环境
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            // GitHub Pages URL结构: /<username>/<repository>/...
+            if (pathSegments.length >= 2) {
+                repoName = '/' + pathSegments[1];
+            }
+        }
+        
+        // 记录当前尝试访问的路径
+        localStorage.setItem('redirect_path', window.location.pathname);
+        
+        // 重定向到主页
+        window.location.href = repoName + '/';
+    </script>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; padding: 20px; text-align: center;">
+    <div>
+        <h1 style="color: #ff4500; font-size: 24px; margin-bottom: 16px;">正在重定向...</h1>
+        <p style="color: #666; margin-bottom: 20px;">如果页面没有自动跳转，请点击下方按钮</p>
+        <a href="/" style="display: inline-block; background: linear-gradient(135deg, #ff7a45 0%, #ff4500 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">返回首页</a>
+    </div>
+</body>
+</html> 

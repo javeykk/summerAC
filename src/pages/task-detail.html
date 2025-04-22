@@ -1,0 +1,131 @@
+<!-- 任务详情页 -->
+<div class="h-full flex flex-col bg-gray-50">
+    <!-- 顶部标题栏 -->
+    <div class="bg-didi-orange h-24 w-full px-5 pt-6 pb-3 relative">
+        <button onclick="window.navigateTo('/progress')" class="absolute top-6 left-4 text-white">
+            <i class="ri-arrow-left-line text-2xl"></i>
+        </button>
+        <div class="text-center text-white mt-1">
+            <h1 class="text-xl font-bold">任务详情</h1>
+            <p class="text-sm mt-0.5 opacity-90">夏季清凉服务挑战赛</p>
+        </div>
+    </div>
+
+    <!-- 主要内容区域 -->
+    <div class="flex-1 overflow-y-auto pb-6">
+        <div class="px-4 py-3 space-y-4">
+            <!-- 任务卡片 -->
+            <div class="bg-white rounded-xl overflow-hidden border border-gray-100">
+                <!-- 任务标题卡片 -->
+                <div class="p-4 bg-didi-orange">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="text-white text-xl font-bold">清凉一夏热区高温补贴</span>
+                                <i class="ri-sun-line text-white ml-2 text-lg"></i>
+                            </div>
+                            <div class="text-white text-xs mt-2 opacity-90">
+                                <span>活动日期: 06.28</span>
+                                <span class="ml-3">任务编号: 219903092459</span>
+                            </div>
+                        </div>
+                        <img src="../assets/hot-summer.png" alt="夏季活动" class="w-16 h-16" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 100 100%22%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22 font-family%3D%22sans-serif%22 font-size%3D%2220%22 fill%3D%22%23fff%22%3E🔆%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                    </div>
+                    <div class="flex items-center mt-3 bg-white bg-opacity-20 rounded-lg p-2">
+                        <i class="ri-volume-up-line text-white mr-2 text-lg"></i>
+                        <span class="text-white text-sm">本活动将于6月28日 12:00正式开始，领取任务后方可参与！</span>
+                    </div>
+                </div>
+
+                <!-- 任务奖励信息 -->
+                <div class="p-4">
+                    <div class="flex justify-between border-b border-gray-100 pb-4">
+                        <div>
+                            <div class="text-gray-500 text-xs mb-1">- 奖励月完成可得 -</div>
+                            <div class="text-gray-800 text-3xl font-bold">24<span class="text-sm ml-1">元</span></div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 text-xs mb-1">- 您当前已奖励 -</div>
+                            <div class="flex items-center">
+                                <span class="text-gray-800 text-3xl font-bold">--</span>
+                                <span class="text-sm ml-1">元</span>
+                                <img src="../assets/coin.png" alt="金币" class="w-6 h-6 ml-2" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 100 100%22%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22 font-family%3D%22sans-serif%22 font-size%3D%2220%22 fill%3D%22%23f8c156%22%3E🪙%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 完成条件 -->
+                    <div class="py-3 border-b border-gray-100">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800 font-medium text-base">完成以下条件，赢取奖励</span>
+                        </div>
+                        <!-- 空调差评指标 -->
+                        <div class="flex justify-between items-center mt-3">
+                            <div class="flex items-center">
+                                <i class="ri-checkbox-blank-circle-line text-xs text-didi-orange mr-2"></i>
+                                <span class="text-gray-600 text-sm">空调差评率低于10%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-green-700 text-sm mr-1">5%</span>
+                                <span class="text-gray-500 text-xs">/10%</span>
+                            </div>
+                        </div>
+                        <!-- 完成单数指标 -->
+                        <div class="flex justify-between items-center mt-3">
+                            <div class="flex items-center">
+                                <i class="ri-checkbox-blank-circle-line text-xs text-didi-orange mr-2"></i>
+                                <span class="text-gray-600 text-sm">完成订单数</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-green-700 text-sm mr-1">0</span>
+                                <span class="text-gray-500 text-xs">/1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 任务时间 -->
+                    <div class="py-3 border-b border-gray-100">
+                        <div class="flex items-center text-gray-700">
+                            <i class="ri-time-line text-didi-orange text-lg mr-2"></i>
+                            <span>任务时间：12:00:00-12:30:00</span>
+                        </div>
+                    </div>
+
+                    <!-- 任务说明 -->
+                    <div class="py-3">
+                        <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                            <i class="ri-information-line text-lg mr-2 text-didi-orange"></i>
+                            任务说明
+                        </h3>
+                        <ul class="space-y-2 pl-2">
+                            <li class="flex items-start">
+                                <span class="text-gray-400 text-sm mr-2">•</span>
+                                <span class="text-gray-600 text-sm">完成1单，解锁下一阶段</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-gray-400 text-sm mr-2">•</span>
+                                <span class="text-gray-600 text-sm">保持空调差评率低于10%，每次差评将扣减20分荣誉值</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-gray-400 text-sm mr-2">•</span>
+                                <span class="text-gray-600 text-sm">当差评率超过10%时将影响奖励发放</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 领取时间 -->
+                    <div class="text-xs text-gray-500 text-center mt-3 bg-gray-50 p-2 rounded-lg border border-gray-100">
+                        2023年6月28日 12:00:00可领取
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部按钮 -->
+    <div class="p-5">
+        <button class="w-full py-4 rounded-xl bg-didi-orange text-white font-medium text-lg shadow-md active:shadow-sm active:transform active:scale-[0.98] transition-all">
+            领取任务
+        </button>
+    </div>
+</div> 

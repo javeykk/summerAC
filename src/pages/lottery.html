@@ -1,0 +1,252 @@
+<div class="h-full flex flex-col bg-white">
+    <!-- 顶部标题栏 -->
+    <div class="didi-gradient h-24 w-full px-5 pt-6 pb-3 relative">
+        <button onclick="window.location.href='index.html'" class="absolute top-6 left-4 text-white">
+            <i class="ri-arrow-left-line text-2xl"></i>
+        </button>
+        <a href="javascript:void(0)" onclick="navigateTo('/rules')" class="absolute top-6 right-4 text-white bg-white bg-opacity-20 rounded-full p-1.5">
+            <i class="ri-question-line text-xl"></i>
+        </a>
+        <div class="text-center text-white mt-1">
+            <h1 class="text-xl font-bold">抽奖赢好礼</h1>
+            <p class="text-sm mt-0.5 opacity-90">活动时间：2025.5.1-2025.8.31</p>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="flex-1 overflow-y-auto">
+        <div class="px-5 py-4 space-y-4">
+            <!-- 抽奖机会卡片 -->
+            <div class="card-shadow rounded-xl bg-white p-5 border border-gray-100">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-base font-bold">我的抽奖机会</h2>
+                    <div class="flex items-center">
+                        <span class="text-lg font-bold text-transparent bg-clip-text didi-gradient mr-1">2</span>
+                        <span class="text-sm">次</span>
+                    </div>
+                </div>
+                
+                <!-- 获取更多机会 -->
+                <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                    <div class="flex items-start">
+                        <i class="ri-lightbulb-line text-lg mr-2 mt-0.5"></i>
+                        <div>
+                            <p class="text-xs mb-1">获取更多抽奖机会</p>
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <div class="flex items-center">
+                                    <i class="ri-checkbox-circle-line text-green-500 mr-1"></i>
+                                    <span class="text-xs">完成周挑战</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-checkbox-circle-line text-green-500 mr-1"></i>
+                                    <span class="text-xs">完成日任务</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-checkbox-circle-line text-green-500 mr-1"></i>
+                                    <span class="text-xs">邀请好友</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-checkbox-circle-line text-green-500 mr-1"></i>
+                                    <span class="text-xs">服务评分</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 抽奖区域 -->
+            <div class="card-shadow rounded-xl bg-white p-5 border border-gray-100">
+                <h2 class="text-base font-bold mb-4 text-center">幸运抽奖</h2>
+                
+                <!-- 九宫格抽奖 -->
+                <div class="lottery-grid relative mx-auto mb-5" style="width: 300px; height: 300px;">
+                    <!-- 奖品格子 - 共9个，以3x3的形式排列 -->
+                    <div class="grid grid-cols-3 gap-2 h-full">
+                        <!-- 奖品1 -->
+                        <div class="lottery-item rounded-lg bg-yellow-50 flex flex-col items-center justify-center p-2 border border-yellow-100" data-index="0">
+                            <img src="https://img.icons8.com/color/48/000000/gift.png" class="w-10 h-10 mb-1">
+                            <p class="text-xs text-center">100元代金券</p>
+                        </div>
+                        <!-- 奖品2 -->
+                        <div class="lottery-item rounded-lg bg-yellow-50 flex flex-col items-center justify-center p-2 border border-yellow-100" data-index="1">
+                            <img src="https://img.icons8.com/color/48/000000/discount.png" class="w-10 h-10 mb-1">
+                            <p class="text-xs text-center">50元代金券</p>
+                        </div>
+                        <!-- 奖品3 -->
+                        <div class="lottery-item rounded-lg bg-yellow-50 flex flex-col items-center justify-center p-2 border border-yellow-100" data-index="2">
+                            <img src="https://img.icons8.com/color/48/000000/cinema-.png" class="w-10 h-10 mb-1">
+                            <p class="text-xs text-center">电影票一张</p>
+                        </div>
+                        <!-- 奖品4 -->
+                        <div class="lottery-item rounded-lg bg-yellow-50 flex flex-col items-center justify-center p-2 border border-yellow-100" data-index="7">
+                            <img src="https://img.icons8.com/color/48/000000/discount-ticket.png" class="w-10 h-10 mb-1">
+                            <p class="text-xs text-center">20元代金券</p>
+                        </div>
+                        <!-- 抽奖按钮 -->
+                        <div class="lottery-btn bg-gradient-to-r from-orange-400 to-red-500 rounded-lg flex items-center justify-center cursor-pointer shadow-md" id="lotteryButton">
+                            <div class="text-white text-center">
+                                <i class="ri-award-fill text-2xl mb-1"></i>
+                                <p class="text-sm font-bold">开始抽奖</p>
+                            </div>
+                        </div>
+                        <!-- 奖品5 -->
+                        <div class="lottery-item rounded-lg bg-yellow-50 flex flex-col items-center justify-center p-2 border border-yellow-100" data-index="3">
+                            <img src="https://img.icons8.com/color/48/000000/coffee-to-go.png" class="w-10 h-10 mb-1">
+                            <p class="text-xs text-center">咖啡券</p>
+                        </div>
+                        <!-- 奖品6 -->
+                        <div class="lottery-item rounded-lg bg-yellow-50 flex flex-col items-center justify-center p-2 border border-yellow-100" data-index="6">
+                            <img src="https://img.icons8.com/color/48/000000/refund.png" class="w-10 h-10 mb-1">
+                            <p class="text-xs text-center">10元代金券</p>
+                        </div>
+                        <!-- 奖品7 -->
+                        <div class="lottery-item rounded-lg bg-yellow-50 flex flex-col items-center justify-center p-2 border border-yellow-100" data-index="5">
+                            <img src="https://img.icons8.com/color/48/000000/ingredients.png" class="w-10 h-10 mb-1">
+                            <p class="text-xs text-center">早餐券</p>
+                        </div>
+                        <!-- 奖品8 -->
+                        <div class="lottery-item rounded-lg bg-yellow-50 flex flex-col items-center justify-center p-2 border border-yellow-100" data-index="4">
+                            <img src="https://img.icons8.com/color/48/000000/confetti.png" class="w-10 h-10 mb-1">
+                            <p class="text-xs text-center">谢谢参与</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 抽奖按钮 -->
+                <button id="startLotteryBtn" class="w-full py-3 rounded-lg btn-orange text-white font-bold text-sm shadow-md flex items-center justify-center">
+                    <i class="ri-gift-line mr-2"></i>
+                    <span>使用抽奖机会</span>
+                </button>
+            </div>
+
+            <!-- 奖品列表 -->
+            <div class="card-shadow rounded-xl bg-white p-5 border border-gray-100 mb-16">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-base font-bold">奖品列表</h2>
+                    <a href="javascript:void(0)" class="text-xs flex items-center text-didi-orange">
+                        <span>查看我的奖品</span>
+                        <i class="ri-arrow-right-s-line ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gray-50 rounded-lg p-3 flex items-center">
+                        <img src="https://img.icons8.com/color/48/000000/gift.png" class="w-8 h-8 mr-2">
+                        <div>
+                            <p class="text-xs font-medium">100元代金券</p>
+                            <p class="text-xs opacity-70">概率: 1%</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 flex items-center">
+                        <img src="https://img.icons8.com/color/48/000000/discount.png" class="w-8 h-8 mr-2">
+                        <div>
+                            <p class="text-xs font-medium">50元代金券</p>
+                            <p class="text-xs opacity-70">概率: 5%</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 flex items-center">
+                        <img src="https://img.icons8.com/color/48/000000/cinema-.png" class="w-8 h-8 mr-2">
+                        <div>
+                            <p class="text-xs font-medium">电影票一张</p>
+                            <p class="text-xs opacity-70">概率: 10%</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 flex items-center">
+                        <img src="https://img.icons8.com/color/48/000000/coffee-to-go.png" class="w-8 h-8 mr-2">
+                        <div>
+                            <p class="text-xs font-medium">咖啡券</p>
+                            <p class="text-xs opacity-70">概率: 15%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部固定导航 -->
+    <div class="bg-white border-t border-gray-100 flex items-center justify-around py-3">
+        <a href="javascript:void(0)" onclick="navigateTo('/progress')" class="flex flex-col items-center">
+            <i class="ri-bar-chart-line text-xl"></i>
+            <span class="text-xs mt-1">活动进度</span>
+        </a>
+        <a href="javascript:void(0)" onclick="navigateTo('/lottery')" class="flex flex-col items-center">
+            <i class="ri-gift-line text-xl text-didi-orange"></i>
+            <span class="text-xs mt-1">抽奖</span>
+        </a>
+        <a href="javascript:void(0)" onclick="navigateTo('/rules')" class="flex flex-col items-center">
+            <i class="ri-question-line text-xl"></i>
+            <span class="text-xs mt-1">活动规则</span>
+        </a>
+    </div>
+    
+    <!-- 抽奖动画JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lotteryItems = document.querySelectorAll('.lottery-item');
+            const startBtn = document.getElementById('startLotteryBtn');
+            const lotteryButton = document.getElementById('lotteryButton');
+            
+            let isRotating = false;
+            let currentIndex = 0;
+            
+            function startLottery() {
+                if (isRotating) return;
+                isRotating = true;
+                
+                // 奖品索引顺序 (按照九宫格顺时针顺序)
+                const indexArr = [0, 1, 2, 3, 4, 5, 6, 7];
+                
+                // 随机确定停止的奖品
+                const randomIndex = Math.floor(Math.random() * indexArr.length);
+                const cycles = 4; // 转几圈
+                const totalSteps = cycles * indexArr.length + randomIndex;
+                
+                let speed = 200; // 初始速度
+                let steps = 0;
+                
+                // 清除所有高亮
+                lotteryItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 定时器转动效果
+                const timer = setInterval(() => {
+                    // 移除当前选中样式
+                    lotteryItems[currentIndex].classList.remove('active');
+                    
+                    // 索引递增
+                    currentIndex = (currentIndex + 1) % indexArr.length;
+                    
+                    // 添加新的选中样式
+                    lotteryItems[currentIndex].classList.add('active');
+                    
+                    steps++;
+                    
+                    // 控制速度变化
+                    if (steps > totalSteps - 10 && speed < 400) {
+                        speed += 50;
+                    } else if (steps < 10 && speed > 100) {
+                        speed -= 30;
+                    }
+                    
+                    // 判断是否停止
+                    if (steps >= totalSteps) {
+                        clearInterval(timer);
+                        isRotating = false;
+                        
+                        // 抽奖结束后显示结果
+                        setTimeout(() => {
+                            const prize = lotteryItems[currentIndex].querySelector('p').textContent;
+                            alert(`恭喜您抽中了: ${prize}`);
+                        }, 500);
+                    }
+                }, speed);
+            }
+            
+            // 绑定点击事件
+            startBtn.addEventListener('click', startLottery);
+            lotteryButton.addEventListener('click', startLottery);
+        });
+    </script>
+</div> 

@@ -1,0 +1,145 @@
+<div class="h-full flex flex-col bg-white">
+    <!-- 顶部图片 -->
+    <div class="relative w-full h-56">
+        <img src="../assets/ac-banner.png" alt="夏季清凉服务" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 100 100%22 fill%3D%22%23ff4500%22%3E%3Crect width%3D%22100%22 height%3D%22100%22 /%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22 font-family%3D%22sans-serif%22 font-size%3D%2220%22 fill%3D%22%23fff%22%3E清凉夏季%3C%2Ftext%3E%3C%2Fsvg%3E'">
+        <button class="absolute top-4 left-4 text-white">
+            <i class="ri-arrow-left-line text-2xl"></i>
+        </button>
+        <button class="absolute top-4 right-4 text-white">
+            <i class="ri-question-line text-xl"></i>
+        </button>
+    </div>
+
+    <!-- 活动内容 -->
+    <div class="p-5 -mt-6 rounded-t-3xl bg-white relative z-10 flex-1">
+        <!-- 活动标题 -->
+        <div class="mb-4">
+            <h1 class="text-base font-medium text-gray-800">夏季清凉服务挑战赛</h1>
+        </div>
+    
+        <!-- 活动时间 -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center">
+                <i class="ri-calendar-line text-lg mr-2 text-gray-600"></i>
+                <span class="text-sm text-gray-600">活动时间：2025.5.1-2025.8.31</span>
+            </div>
+            <div class="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-500">
+                即将开始
+            </div>
+        </div>
+
+        <!-- 奖励介绍卡片 -->
+        <div class="mb-6">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">活动奖励</h3>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-xl p-4 border border-gray-100 h-[108px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <i class="ri-coin-line text-lg mr-2 text-didi-orange"></i>
+                            <span class="font-medium text-gray-800">周达标奖</span>
+                        </div>
+                        <p class="text-xs text-gray-600 font-medium">完成20单无差评</p>
+                    </div>
+                    <div class="reward-tag">最高50元现金</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-100 h-[108px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <i class="ri-trophy-line text-lg mr-2 text-didi-orange"></i>
+                            <span class="font-medium text-gray-800">连胜奖励</span>
+                        </div>
+                        <p class="text-xs text-gray-600 font-medium">连续2周达标</p>
+                    </div>
+                    <div class="reward-tag">最高14天免佣卡</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-100 h-[108px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <i class="ri-user-heart-line text-lg mr-2 text-didi-orange"></i>
+                            <span class="font-medium text-gray-800">邀请好友</span>
+                        </div>
+                        <p class="text-xs text-gray-600 font-medium">每邀1位新司机</p>
+                    </div>
+                    <div class="reward-tag">最高得1服务分</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-100 h-[108px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <i class="ri-star-line text-lg mr-2 text-didi-orange"></i>
+                            <span class="font-medium text-gray-800">终极大奖</span>
+                        </div>
+                        <p class="text-xs text-gray-600 font-medium">满3个月无差评</p>
+                    </div>
+                    <div class="reward-tag">最高1000元</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 报名按钮 -->
+        <div class="mb-6">
+            <a href="javascript:void(0)" onclick="window.navigateTo('/progress')" class="btn-orange w-full py-4 rounded-xl text-white font-bold shadow-md flex items-center justify-center">
+                <span>报名立得0.5服务分</span>
+                <i class="ri-arrow-right-line ml-2"></i>
+            </a>
+        </div>
+        
+        <!-- 活动规则 -->
+        <div class="mb-8">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">活动规则</h3>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                <div class="flex items-start mb-3">
+                    <div class="w-5 h-5 rounded-full flex items-center justify-center bg-didi-orange text-white mt-0.5 mr-3 flex-shrink-0">
+                        <span class="text-xs">1</span>
+                    </div>
+                    <p class="text-sm text-gray-700">报名参与此次活动，初始获得满分荣誉值</p>
+                </div>
+                <div class="flex items-start mb-3">
+                    <div class="w-5 h-5 rounded-full flex items-center justify-center bg-didi-orange text-white mt-0.5 mr-3 flex-shrink-0">
+                        <span class="text-xs">2</span>
+                    </div>
+                    <p class="text-sm text-gray-700">每周达成"空调相关0差评"和"完成20单"</p>
+                </div>
+                <div class="flex items-start mb-3">
+                    <div class="w-5 h-5 rounded-full flex items-center justify-center bg-didi-orange text-white mt-0.5 mr-3 flex-shrink-0">
+                        <span class="text-xs">3</span>
+                    </div>
+                    <p class="text-sm text-gray-700">达成条件获得抽奖机会，可抽取丰富奖励</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-5 h-5 rounded-full flex items-center justify-center bg-didi-orange text-white mt-0.5 mr-3 flex-shrink-0">
+                        <span class="text-xs">4</span>
+                    </div>
+                    <p class="text-sm text-gray-700">保持高荣誉值，可获终极大奖抽奖资格</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 活动说明 -->
+        <div class="text-center text-xs text-gray-500 mb-8">
+            <p>报名即表示您已阅读并同意</p>
+            <a href="javascript:void(0)" onclick="window.navigateTo('/rules')" class="text-didi-orange">《活动完整规则》</a>
+        </div>
+    </div>
+
+    <script>
+        console.log("注册页面脚本已加载");
+        
+        // 页面处理函数
+        function initPage() {
+            console.log("初始化注册页面");
+            
+            // 找到所有锚点链接处理
+            document.querySelectorAll('a[href^="/"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const path = this.getAttribute('href');
+                    console.log("内部链接被点击，导航到:", path);
+                    window.navigateTo(path);
+                });
+            });
+        }
+        
+        // 如果是直接加载，则执行初始化
+        initPage();
+    </script>
+</div> 

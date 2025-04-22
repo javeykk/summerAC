@@ -1,0 +1,252 @@
+<div class="h-full flex flex-col bg-gray-50">
+    <!-- 顶部标题栏 -->
+    <div class="bg-didi-orange h-24 w-full px-5 pt-6 pb-3 relative">
+        <button onclick="window.navigateTo('/progress')" class="absolute top-6 left-4 text-white">
+            <i class="ri-arrow-left-line text-2xl"></i>
+        </button>
+        <div class="text-center text-white mt-1">
+            <h1 class="text-xl font-bold">活动规则</h1>
+            <p class="text-sm mt-0.5 opacity-90">夏季清凉服务挑战赛</p>
+        </div>
+    </div>
+
+    <!-- 主体内容 滚动区域 -->
+    <div class="flex-1 overflow-y-auto pb-6">
+        <div class="px-4 py-3 space-y-4">
+            <!-- 规则卡片 -->
+            <div class="bg-white rounded-xl p-4 border border-gray-100">
+                <h2 class="text-base font-medium text-gray-800 mb-4">夏季清凉服务挑战赛活动规则</h2>
+                
+                <!-- 活动基本信息 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-calendar-line text-lg mr-2 text-didi-orange"></i>
+                        一、活动时间与参与资格
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">活动时间：2025年5月1日至2025年8月31日</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">参与资格：滴滴平台注册的有效司机</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 有效差评定义 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-thumb-down-line text-lg mr-2 text-didi-orange"></i>
+                        二、"有效空调相关差评"定义
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">定义：乘客对司机空调服务提出的有效投诉</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">判定来源：基于平台众判系统结果，判定为司机责任的空调相关投诉</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">差评类型：包括但不限于"空调不够凉"、"车内温度过高"、"拒绝开空调"等空调服务相关投诉</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 清凉服务荣誉值 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-award-line text-lg mr-2 text-didi-orange"></i>
+                        三、清凉服务荣誉值规则
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">初始值：活动开始时，每位司机初始荣誉值为100分</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">扣分规则：每收到1次有效空调相关差评，荣誉值扣减20分</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">最终用途：活动结束时，荣誉值90分及以上的司机将获得额外100服务分奖励，并有机会参与终极大奖抽奖</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 周期任务 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-time-line text-lg mr-2 text-didi-orange"></i>
+                        四、周期任务要求
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">周期定义：以自然周为单位，每周一0点至周日24点</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">任务要求：</span>
+                        </li>
+                        <li class="flex items-start pl-5">
+                            <span class="text-gray-400 text-sm mr-2">1.</span>
+                            <span class="text-gray-600 text-sm">周期内空调相关差评为0</span>
+                        </li>
+                        <li class="flex items-start pl-5">
+                            <span class="text-gray-400 text-sm mr-2">2.</span>
+                            <span class="text-gray-600 text-sm">周期内完成至少20单订单</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">达成方式：同时满足上述两个条件即视为达成周期任务</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 抽奖机会获取 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-gift-line text-lg mr-2 text-didi-orange"></i>
+                        五、抽奖机会获取方式
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">完成周期任务：每完成一个周期的任务获得1次抽奖机会</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">邀请好友：每成功邀请1位司机参与活动获得1次抽奖机会</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">连续达成：连续2周达成周期任务，额外获得1次抽奖机会</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 奖品说明 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-trophy-line text-lg mr-2 text-didi-orange"></i>
+                        六、奖品类型说明
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">现金奖励：¥1、¥2、¥5、¥88、¥188</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">服务分：50分、100分、200分</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">免佣卡：1小时免佣、2单免佣、5单免佣</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">平台积分：50积分、100积分</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 邀请规则 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-user-add-line text-lg mr-2 text-didi-orange"></i>
+                        七、邀请好友规则
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">邀请对象：未参与本次活动的平台注册司机</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">邀请方式：通过活动页生成的专属二维码、链接或海报</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">成功定义：被邀请司机通过邀请人的专属链接成功报名参与活动</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 奖励发放 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-hand-coin-line text-lg mr-2 text-didi-orange"></i>
+                        八、奖励发放方式与时间
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">抽奖奖励：即时发放至司机账户</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">连胜奖励：系统自动判定并即时发放</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">最终荣誉值奖励：活动结束后7个工作日内统一发放</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 作弊行为 -->
+                <div class="mb-4">
+                    <h3 class="font-medium text-base mb-2 flex items-center text-gray-800">
+                        <i class="ri-error-warning-line text-lg mr-2 text-didi-orange"></i>
+                        九、作弊行为认定及处理
+                    </h3>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">作弊行为包括但不限于：刷单、虚假邀请、利用系统漏洞获取抽奖机会等</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 text-sm mr-2">•</span>
+                            <span class="text-gray-600 text-sm">一经发现作弊行为，平台有权取消参与资格并收回所有已发放奖励</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 常见问题 -->
+                <div class="mb-4 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                    <h3 class="font-medium text-base mb-3 flex items-center text-gray-800">
+                        <i class="ri-question-line text-lg mr-2 text-didi-orange"></i>
+                        常见问题
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg border border-gray-100">
+                            <p class="text-sm font-medium text-didi-orange mb-1">如何知道我收到了空调相关差评？</p>
+                            <p class="text-sm text-gray-600">系统会通过App消息中心向您推送通知，您也可以在活动页面查看当前荣誉值和差评情况。</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-100">
+                            <p class="text-sm font-medium text-didi-orange mb-1">抽奖获得的奖励多久到账？</p>
+                            <p class="text-sm text-gray-600">现金、服务分、积分、免佣卡等奖励均为即时发放，抽奖后即可使用。</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-100">
+                            <p class="text-sm font-medium text-didi-orange mb-1">活动期间可以累积多少次抽奖机会？</p>
+                            <p class="text-sm text-gray-600">抽奖机会无上限，您可以通过完成周期任务、邀请好友等多种方式获取。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 免责声明 -->
+                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                    <h3 class="font-medium text-sm mb-2 text-gray-700">免责声明</h3>
+                    <p class="text-xs text-gray-500">平台保留对活动规则的最终解释权。如遇不可抗力因素，平台有权调整或取消活动。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

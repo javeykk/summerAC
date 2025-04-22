@@ -1,0 +1,457 @@
+<style>
+/* 所有控制用的复选框默认隐藏 */
+.toggle-control {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+/* 当复选框被选中时显示内容 */
+#honor-toggle:checked ~ .honor-details {
+  display: block;
+}
+
+#honor-toggle:checked ~ .honor-label .honor-icon {
+  transform: rotate(180deg);
+}
+
+/* 默认隐藏详情内容 */
+.honor-details {
+  display: none;
+}
+
+/* 任务展开/折叠控制 */
+#tasks-toggle:checked ~ .hidden-tasks {
+  display: block;
+}
+
+#tasks-toggle:checked ~ .tasks-label .show-more {
+  display: none;
+}
+
+#tasks-toggle:checked ~ .tasks-label .show-less {
+  display: flex;
+}
+
+.hidden-tasks {
+  display: none;
+}
+
+.show-less {
+  display: none;
+}
+</style>
+
+<div class="h-full flex flex-col bg-gray-50">
+    <!-- 顶部标题栏 -->
+    <div class="bg-didi-orange h-24 w-full px-5 pt-6 pb-3 relative">
+        <button onclick="window.navigateTo('/')" class="absolute top-6 left-4 text-white">
+            <i class="ri-arrow-left-line text-2xl"></i>
+        </button>
+        <a href="javascript:void(0)" onclick="navigateTo('/rules')" class="absolute top-6 right-4 text-white bg-white bg-opacity-20 rounded-full p-1.5">
+            <i class="ri-question-line text-xl"></i>
+        </a>
+        <div class="text-center text-white mt-1">
+            <h1 class="text-xl font-bold">夏季清凉服务挑战赛</h1>
+            <p class="text-sm mt-0.5 opacity-90">活动时间：2025.5.1-2025.8.31</p>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="flex-1 overflow-y-auto pb-6">
+        <div class="px-4 py-3 space-y-4">
+            <!-- 模块一：我的荣誉和终极大奖 -->
+            <div class="bg-white rounded-xl p-4 border border-gray-100">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-base font-medium text-gray-800">我的清凉服务荣誉</h2>
+                    <span class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded-full font-medium border border-green-100">优秀级别</span>
+                </div>
+                
+                <!-- 荣誉值进度条 -->
+                <div class="mb-3">
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-didi-orange font-medium">太棒了！继续保持！</span>
+                        <span class="font-bold text-green-700">100/100分</span>
+                    </div>
+                    <div class="h-2.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                        <div class="bg-didi-orange h-2.5 rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+                
+                <!-- 终极大奖展示 -->
+                <div class="mb-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                    <div class="flex items-center">
+                        <i class="ri-trophy-fill text-didi-orange text-xl mr-2"></i>
+                        <h3 class="text-sm font-medium text-gray-800">保持优秀级别，有机会获得终极大奖！</h3>
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-xs text-gray-600 mb-2">活动结束时，您将有机会获得以下奖励之一：</p>
+                        
+                        <style>
+                        @keyframes slide {
+                            0%, 30% { transform: translateX(0); }
+                            33%, 63% { transform: translateX(-33.333%); }
+                            66%, 97% { transform: translateX(-66.666%); }
+                            100% { transform: translateX(0); }
+                        }
+                        .auto-carousel {
+                            animation: slide 9s infinite;
+                        }
+                        </style>
+                        
+                        <!-- 奖品轮播 -->
+                        <div class="relative overflow-hidden my-2">
+                            <div class="flex w-[300%] auto-carousel">
+                                <!-- 奖品1 -->
+                                <div class="w-1/3 px-2">
+                                    <div class="flex flex-col items-center justify-center py-1 bg-white rounded-lg border border-gray-200">
+                                        <i class="ri-money-cny-circle-line text-didi-orange text-2xl mb-1"></i>
+                                        <p class="font-medium text-gray-800 text-base">现金大奖（最高1000元）</p>
+                                    </div>
+                                </div>
+                                <!-- 奖品2 -->
+                                <div class="w-1/3 px-2">
+                                    <div class="flex flex-col items-center justify-center py-1 bg-white rounded-lg border border-gray-200">
+                                        <i class="ri-coupon-line text-didi-orange text-2xl mb-1"></i>
+                                        <p class="font-medium text-gray-800 text-base">免佣卡兑换券（最高60天）</p>
+                                    </div>
+                                </div>
+                                <!-- 奖品3 -->
+                                <div class="w-1/3 px-2">
+                                    <div class="flex flex-col items-center justify-center py-1 bg-white rounded-lg border border-gray-200">
+                                        <i class="ri-star-line text-didi-orange text-2xl mb-1"></i>
+                                        <p class="font-medium text-gray-800 text-base">服务分（最高20分）</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 指示点 -->
+                        <div class="flex justify-center mt-1 mb-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-didi-orange mx-1"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-gray-300 mx-1"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-gray-300 mx-1"></span>
+                        </div>
+                        
+                        <p class="text-xs text-gray-500 text-center mt-1">*仅限维持"优秀"级别至活动结束的司机参与抽取</p>
+                    </div>
+                </div>
+                
+                <!-- 荣誉说明 - 使用纯CSS控制 -->
+                <div class="bg-gray-50 rounded-lg p-3 mb-3">
+                    <input type="checkbox" id="honor-toggle" class="toggle-control">
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="ri-information-line text-lg mr-2 text-didi-orange"></i>
+                            <p class="text-xs font-medium text-gray-700">您当前荣誉值: <span class="font-bold text-didi-orange">100/100分</span></p>
+                        </div>
+                        <label for="honor-toggle" class="text-gray-500 honor-label">
+                            <i class="ri-arrow-down-s-line honor-icon"></i>
+                        </label>
+                    </div>
+                    
+                    <div class="mt-2 ml-6 honor-details">
+                        <div class="space-y-2.5">
+                            <div class="flex items-center p-2 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border border-green-200">
+                                <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center mr-2 flex-shrink-0">
+                                    <i class="ri-trophy-line text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-medium text-gray-800">80-100分：<span class="text-green-600 font-bold">"优秀"级别</span></p>
+                                    <p class="text-xs text-gray-600">可获高级抽奖池奖励</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center p-2 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg border border-blue-200">
+                                <div class="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                                    <i class="ri-medal-line text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-medium text-gray-800">60-79分：<span class="text-blue-600 font-bold">"良好"级别</span></p>
+                                    <p class="text-xs text-gray-600">可获中级抽奖池奖励</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center p-2 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
+                                <div class="w-5 h-5 rounded-full bg-gray-500 flex items-center justify-center mr-2 flex-shrink-0">
+                                    <i class="ri-star-line text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-medium text-gray-800">低于60分：<span class="text-gray-600 font-bold">"一般"级别</span></p>
+                                    <p class="text-xs text-gray-600">仅可获初级抽奖池奖励</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 差评计数 -->
+                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mb-3">
+                    <div class="flex items-center mb-2">
+                        <i class="ri-error-warning-line text-lg mr-2 text-didi-orange"></i>
+                        <h3 class="text-sm font-medium text-gray-800">荣誉值扣分项</h3>
+                    </div>
+                    
+                    <div class="flex items-center justify-between py-1 border-b border-gray-200">
+                        <div class="flex items-center">
+                            <i class="ri-thumb-down-line mr-2 text-gray-600 text-sm"></i>
+                            <span class="text-xs text-gray-600">每次空调相关差评，扣减20分</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-xs text-gray-600 mr-1">差评数:</span>
+                            <span class="text-green-700 font-bold">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-2">
+                        <div class="flex flex-col">
+                            <div class="flex items-center">
+                                <i class="ri-car-line mr-2 text-gray-600 text-sm"></i>
+                                <span class="text-xs text-gray-600">活动期间完单数不足60单</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1 ml-6">
+                                活动结束时每差1单，扣减20分
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="flex flex-col items-end">
+                                <div class="flex items-center">
+                                    <span class="text-green-700 text-sm font-medium">36/60</span>
+                                    <span class="text-green-700 text-xs ml-0.5">单</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模块二：我的抽奖机会 -->
+            <div class="bg-white rounded-xl p-4 border border-gray-100">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <i class="ri-gift-2-line text-didi-orange text-lg mr-2"></i>
+                        <h2 class="text-base font-medium text-gray-800">我的抽奖机会</h2>
+                    </div>
+                    <span class="text-didi-orange font-bold text-base">2次</span>
+                </div>
+                
+                <!-- 热门奖品展示 -->
+                <div class="grid grid-cols-3 gap-2 mb-3">
+                    <div class="bg-gray-50 p-2 rounded-lg flex flex-col items-center border border-gray-200">
+                        <i class="ri-money-cny-circle-line text-didi-orange text-2xl mb-1"></i>
+                        <p class="text-xs text-gray-600 text-center">现金红包</p>
+                    </div>
+                    <div class="bg-gray-50 p-2 rounded-lg flex flex-col items-center border border-gray-200">
+                        <i class="ri-bar-chart-line text-didi-orange text-2xl mb-1"></i>
+                        <p class="text-xs text-gray-600 text-center">服务分</p>
+                    </div>
+                    <div class="bg-gray-50 p-2 rounded-lg flex flex-col items-center border border-gray-200">
+                        <i class="ri-coupon-line text-didi-orange text-2xl mb-1"></i>
+                        <p class="text-xs text-gray-600 text-center">免佣卡</p>
+                    </div>
+                </div>
+
+                <button class="w-full py-3 rounded-lg bg-didi-orange text-white font-medium text-sm shadow-md flex items-center justify-center">
+                    <i class="ri-gift-line mr-2"></i>
+                    <span>立即抽奖 (2次机会)</span>
+                </button>
+            </div>
+
+            <!-- 新模块：抽奖任务列表 -->
+            <div class="bg-white rounded-xl p-4 border border-gray-100">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <i class="ri-list-check-line text-didi-orange text-lg mr-2"></i>
+                        <h2 class="text-base font-medium text-gray-800">抽奖任务</h2>
+                    </div>
+                </div>
+            
+                <!-- 任务列表 -->
+                <div class="space-y-3">
+                    <!-- 任务2: 邀请好友 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
+                                    <i class="ri-user-add-line text-white"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-gray-800">邀请好友+1次</h3>
+                                    <p class="text-xs text-gray-600 mt-0.5">每邀请1位司机参与活动</p>
+                                    <p class="text-xs text-gray-600 mt-1">已邀请: <span class="text-didi-orange font-medium">2人</span></p>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="text-xs bg-didi-orange text-white px-3 py-1.5 rounded-full">
+                                    去邀请
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 任务1: 完成周期任务 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
+                                    <i class="ri-time-line text-white"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-gray-800">完成周期任务+2次</h3>
+                                    <p class="text-xs text-gray-600 mt-0.5">每周完成20单且0空调差评</p>
+                                    <p class="text-xs text-gray-600 mt-1">已完成：15单</p>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 任务3-1: 连续达成2周 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
+                                    <i class="ri-medal-line text-white"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-gray-800">连续达成2周+3次</h3>
+                                    <p class="text-xs text-gray-600 mt-0.5">连续2周达成周期任务</p>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
+                        </div>
+                        <div class="mt-2 flex space-x-1.5">
+                            <div class="w-6 h-6 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white">1</div>
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">2</div>
+                        </div>
+                    </div>
+                
+                    <!-- 任务展开控制 -->
+                    <input type="checkbox" id="tasks-toggle" class="toggle-control">
+                    
+                    <!-- 更多任务按钮 -->
+                    <div class="flex justify-center mt-3">
+                        <label for="tasks-toggle" class="tasks-label">
+                            <div class="show-more text-xs bg-gray-50 text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 flex items-center cursor-pointer">
+                                <span>查看更多任务</span>
+                                <i class="ri-arrow-down-s-line ml-1"></i>
+                            </div>
+                            <div class="show-less text-xs bg-gray-50 text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 flex items-center cursor-pointer">
+                                <span>收起任务</span>
+                                <i class="ri-arrow-up-s-line ml-1"></i>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- 隐藏的任务 -->
+                    <div class="hidden-tasks">
+                        <!-- 任务3-2: 连续达成3周 -->
+                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mt-3">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
+                                        <i class="ri-medal-line text-white"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-medium text-gray-800">连续达成3周+4次</h3>
+                                        <p class="text-xs text-gray-600 mt-0.5">连续3周达成周期任务</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
+                            </div>
+                            <div class="mt-2 flex space-x-1.5">
+                                <div class="w-6 h-6 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white">1</div>
+                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">2</div>
+                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">3</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 任务3-3: 连续达成4周 -->
+                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mt-3">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-didi-orange flex items-center justify-center flex-shrink-0">
+                                        <i class="ri-trophy-line text-white"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-medium text-gray-800">连续达成4周+5次</h3>
+                                        <p class="text-xs text-gray-600 mt-0.5">连续4周达成周期任务</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded-full border border-yellow-100">进行中</span>
+                            </div>
+                            <div class="mt-2 flex space-x-1.5">
+                                <div class="w-6 h-6 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white">1</div>
+                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">2</div>
+                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">3</div>
+                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white">4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 阶段抽奖池说明 -->
+            <div class="bg-white rounded-xl p-4 border border-gray-100 mt-4 mb-5">
+                <div class="flex items-center mb-3">
+                    <i class="ri-trophy-line text-didi-orange text-lg mr-2"></i>
+                    <h2 class="text-base font-medium text-gray-800">阶段抽奖池</h2>
+                </div>
+                
+                <div class="space-y-3">
+                    <!-- 初级抽奖池 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-7 h-7 rounded-full bg-didi-orange flex items-center justify-center text-xs text-white mr-2">初</div>
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-800">初级抽奖池</h3>
+                                    <p class="text-xs text-gray-600 mt-0.5">活动开始即可参与</p>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-full">已解锁</span>
+                        </div>
+                        <div class="mt-2 pl-9">
+                            <p class="text-xs text-gray-600">1-5元红包、1天免佣卡、服务分+2</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 中级抽奖池 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-7 h-7 rounded-full bg-gray-500 flex items-center justify-center text-xs text-white mr-2">中</div>
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-800">中级抽奖池</h3>
+                                    <p class="text-xs text-gray-600 mt-0.5">连续2周达成任务解锁</p>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">未解锁</span>
+                        </div>
+                        <div class="mt-2 pl-9">
+                            <p class="text-xs text-gray-600">5-20元红包、7天免佣卡、服务分+5</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 高级抽奖池 -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-7 h-7 rounded-full bg-gray-500 flex items-center justify-center text-xs text-white mr-2">高</div>
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-800">高级抽奖池</h3>
+                                    <p class="text-xs text-gray-600 mt-0.5">连续4周达成任务解锁</p>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">未解锁</span>
+                        </div>
+                        <div class="mt-2 pl-9">
+                            <p class="text-xs text-gray-600">20-100元红包、30天免佣卡、服务分+10</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
