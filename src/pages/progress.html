@@ -116,6 +116,336 @@
 </head>
 <body>
 <style>
+/* 调整主题颜色变量 */
+:root {
+  --didi-blue: #4E9DE3; /* 主要蓝色 */
+  --didi-blue-dark: #3E8BD2; /* 深一点的蓝色，用于悬停等 */
+  --didi-blue-light: #6AABED; /* 浅一点的蓝色 */
+  --bg-gradient-start: #EFF7FF; /* 浅蓝色渐变起点 */
+  --bg-gradient-end: #F5FAFF; /* 浅蓝色渐变终点 */
+  --card-bg: #FFFFFF; /* 卡片背景 */
+  --highlight-blue-bg: #F0F8FF; /* 高亮蓝色背景 */
+  --highlight-blue-border: #C5E2FF; /* 高亮蓝色边框 */
+  --text-primary: #333333; /* 主要文字颜色 */
+  --text-secondary: #666666; /* 次要文字颜色 */
+  --text-blue: #4E9DE3; /* 蓝色文字 */
+}
+
+/* 覆盖默认颜色 */
+.bg-didi-orange {
+  background-color: var(--didi-blue) !important;
+}
+
+.text-didi-orange {
+  color: var(--didi-blue) !important;
+}
+
+/* 页面背景渐变 */
+.bg-gray-50 {
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)) !important;
+}
+
+/* 卡片背景 */
+.bg-white {
+  background-color: var(--card-bg) !important;
+}
+
+/* 修复蓝色渐变 */
+.bg-gradient-to-r.from-blue-50.to-blue-100 {
+  background: linear-gradient(to right, #F0F8FF, #E6F4FF) !important;
+  border-color: #C5E2FF !important;
+}
+
+/* 修复绿色渐变 */
+.bg-gradient-to-r.from-green-50.to-green-100 {
+  background: linear-gradient(to right, #F2FBF7, #E6F7EF) !important;
+  border-color: #C5E8D7 !important;
+}
+
+/* 更新按钮样式 */
+button.bg-didi-orange, .bg-didi-orange {
+  background-color: var(--didi-blue) !important;
+}
+
+/* 按钮悬停效果 */
+button.bg-didi-orange:hover {
+  background-color: var(--didi-blue-dark) !important;
+}
+
+/* 状态标签 */
+.text-yellow-600 {
+  color: var(--didi-blue) !important;
+}
+
+.bg-yellow-50 {
+  background-color: var(--highlight-blue-bg) !important;
+}
+
+.border-yellow-100 {
+  border-color: var(--highlight-blue-border) !important;
+}
+
+/* "我的奖品"按钮 */
+.my-prizes-badge {
+  position: relative;
+  background-color: var(--highlight-blue-bg);
+  color: var(--didi-blue);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+  border: 1px solid var(--highlight-blue-border);
+}
+
+.my-prizes-badge:active {
+  transform: scale(0.96);
+}
+
+.my-prizes-badge i {
+  margin-right: 4px;
+}
+
+/* 添加邀请模态框样式 */
+.invite-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.invite-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.invite-modal-content {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 320px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(20px);
+  transition: transform 0.3s;
+}
+
+.invite-modal.active .invite-modal-content {
+  transform: translateY(0);
+}
+
+.invite-option {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+.invite-option:active {
+  background-color: #f9f9f9;
+}
+
+.invite-option i {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.invite-option.wechat i {
+  color: #07C160;
+}
+
+.invite-option.link i {
+  color: var(--didi-blue);
+}
+
+.invite-option.poster i {
+  color: var(--didi-blue);
+}
+
+/* 九宫格抽奖相关样式 */
+.lottery-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.lottery-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lottery-grid {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--didi-blue-light), var(--didi-blue));
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(78, 157, 227, 0.3);
+}
+
+.lottery-item {
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.lottery-item.flashing {
+  animation: flash 0.5s infinite alternate;
+  box-shadow: 0 0 12px rgba(78, 157, 227, 0.8);
+  border: 3px solid var(--didi-blue);
+  transform: scale(1.05);
+}
+
+.lottery-item.highlight {
+  background: #E6F4FF;
+  border: 3px solid var(--didi-blue);
+  transform: scale(1.08);
+  box-shadow: 0 0 15px rgba(78, 157, 227, 0.85);
+}
+
+.lottery-item.selected {
+  background: var(--didi-blue);
+  border: 3px solid var(--didi-blue-light);
+  box-shadow: 0 0 20px rgba(78, 157, 227, 0.9);
+}
+
+.lottery-item.selected i,
+.lottery-item.selected p {
+  color: white;
+  font-weight: bold;
+}
+
+.lottery-item i {
+  font-size: 24px;
+  color: var(--didi-blue);
+  margin-bottom: 5px;
+}
+
+.lottery-item p {
+  font-size: 12px;
+  color: #333;
+  font-weight: 500;
+  margin: 0;
+}
+
+.lottery-title {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.lottery-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lottery-footer {
+  position: absolute;
+  bottom: -70px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.lottery-select-btn {
+  background: var(--didi-blue);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(78, 157, 227, 0.3);
+  cursor: pointer;
+  display: none;
+}
+
+.lottery-select-btn.visible {
+  display: block;
+}
+
+@keyframes flash {
+  0% {
+    background: #fff;
+    transform: scale(1);
+  }
+  100% {
+    background: #E6F4FF;
+    transform: scale(1.05);
+  }
+}
+
+/* 邀请选项颜色 */
+.invite-option.poster i {
+  color: var(--didi-blue);
+}
+
+/* 圆角高亮指示点 */
+.bg-didi-orange.rounded-full {
+  background-color: var(--didi-blue) !important;
+}
+
+/* 进度条 */
+.bg-didi-orange.h-2\.5 {
+  background-color: var(--didi-blue) !important;
+}
+
+/* 轮播背景 */
+.auto-carousel {
+  animation: slide 9s infinite;
+}
+
 /* 所有控制用的复选框默认隐藏 */
 .toggle-control {
   position: absolute;
@@ -205,8 +535,8 @@
 
 .my-prizes-badge {
   position: relative;
-  background-color: #FEF2EE;
-  color: #F26233;
+  background-color: #FFF6F2;
+  color: var(--didi-blue);
   padding: 4px 10px;
   border-radius: 16px;
   font-weight: 500;
@@ -222,158 +552,6 @@
 
 .my-prizes-badge i {
   margin-right: 4px;
-}
-
-/* 九宫格抽奖相关样式 */
-.lottery-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-
-.lottery-modal.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.lottery-grid {
-  width: 300px;
-  height: 300px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 10px;
-  padding: 15px;
-  background: linear-gradient(135deg, #ff7a45, #F26233);
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(242, 98, 51, 0.3);
-}
-
-.lottery-item {
-  background: #fff;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.lottery-item.flashing {
-  animation: flash 0.5s infinite alternate;
-  box-shadow: 0 0 12px rgba(242, 98, 51, 0.8);
-  border: 3px solid #E84E1B;
-  transform: scale(1.05);
-}
-
-.lottery-item.highlight {
-  background: #FFCBB7;
-  border: 3px solid #E84E1B;
-  transform: scale(1.08);
-  box-shadow: 0 0 15px rgba(242, 98, 51, 0.85);
-}
-
-.lottery-item.selected {
-  background: #E84E1B;
-  border: 3px solid #FF8B6A;
-  box-shadow: 0 0 20px rgba(242, 98, 51, 0.9);
-}
-
-.lottery-item.selected i,
-.lottery-item.selected p {
-  color: white;
-  font-weight: bold;
-}
-
-.lottery-item i {
-  font-size: 24px;
-  color: #F26233;
-  margin-bottom: 5px;
-}
-
-.lottery-item p {
-  font-size: 12px;
-  color: #333;
-  font-weight: 500;
-  margin: 0;
-}
-
-.lottery-title {
-  position: absolute;
-  top: -50px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.lottery-close {
-  position: absolute;
-  top: -50px;
-  right: 0;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.lottery-footer {
-  position: absolute;
-  bottom: -70px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.lottery-select-btn {
-  background: #F26233;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 20px;
-  font-size: 14px;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(242, 98, 51, 0.3);
-  cursor: pointer;
-  display: none;
-}
-
-.lottery-select-btn.visible {
-  display: block;
-}
-
-@keyframes flash {
-  0% {
-    background: #fff;
-    transform: scale(1);
-  }
-  100% {
-    background: #FFB296;
-    transform: scale(1.05);
-  }
 }
 
 /* 添加邀请模态框样式 */
@@ -435,11 +613,35 @@
 }
 
 .invite-option.link i {
-  color: #1890ff;
+  color: var(--didi-blue);
 }
 
 .invite-option.poster i {
-  color: #F26233;
+  color: var(--didi-blue);
+}
+
+.text-green-600 {
+  color: var(--didi-blue) !important;
+}
+
+.text-green-700 {
+  color: var(--didi-blue) !important;
+}
+
+.bg-green-50 {
+  background-color: var(--highlight-blue-bg) !important;
+}
+
+.border-green-100 {
+  border-color: var(--highlight-blue-border) !important;
+}
+
+.bg-green-500 {
+  background-color: var(--didi-blue) !important;
+}
+
+.w-1\.5.h-1\.5.rounded-full.bg-didi-orange {
+  background-color: var(--didi-blue) !important;
 }
 </style>
 
@@ -449,7 +651,7 @@
         <button onclick="window.navigateTo('/')" class="absolute top-6 left-4 text-white">
             <i class="ri-arrow-left-line text-2xl"></i>
         </button>
-        <a href="javascript:void(0)" onclick="navigateTo('/rules')" class="absolute top-6 right-4 text-white bg-white bg-opacity-20 rounded-full p-1.5">
+        <a href="javascript:void(0)" onclick="navigateTo('/rules')" class="absolute top-6 right-4 text-didi-blue bg-white bg-opacity-20 rounded-full p-1.5">
             <i class="ri-question-line text-xl"></i>
         </a>
         <div class="text-center text-white mt-1">
@@ -472,7 +674,7 @@
                 <div class="mb-3">
                     <div class="flex justify-between text-sm mb-1">
                         <span class="text-didi-orange font-medium">太棒了！继续保持！</span>
-                        <span class="font-bold text-green-700">100/100分</span>
+                        <span class="font-bold text-green-700">10/10分</span>
                     </div>
                     <div class="h-2.5 w-full bg-gray-100 rounded-full overflow-hidden">
                         <div class="bg-didi-orange h-2.5 rounded-full" style="width: 100%"></div>
@@ -545,7 +747,7 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <i class="ri-information-line text-lg mr-2 text-didi-orange"></i>
-                            <p class="text-xs font-medium text-gray-700">您当前清凉值: <span class="font-bold text-didi-orange">100/100分</span></p>
+                            <p class="text-xs font-medium text-gray-700">您当前清凉值: <span class="font-bold text-didi-orange">10/10分</span></p>
                         </div>
                         <label for="honor-toggle" class="text-gray-500 honor-label">
                             <i class="ri-arrow-down-s-line honor-icon"></i>
@@ -559,17 +761,17 @@
                                     <i class="ri-trophy-line text-white text-xs"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-medium text-gray-800">80-100分：<span class="text-green-600 font-bold">"优秀"级别</span></p>
+                                    <p class="text-xs font-medium text-gray-800">8-10分：<span class="text-green-600 font-bold">"优秀"级别</span></p>
                                     <p class="text-xs text-gray-600">可获高级抽奖池奖励，最高1000元现金</p>
                                 </div>
                             </div>
                             
-                            <div class="flex items-center p-2 bg-gradient-to-r froqing'liang-50 to-blue-100 rounded-lg border border-blue-200">
+                            <div class="flex items-center p-2 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg border border-blue-200">
                                 <div class="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
                                     <i class="ri-medal-line text-white text-xs"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-medium text-gray-800">60-79分：<span class="text-blue-600 font-bold">"良好"级别</span></p>
+                                    <p class="text-xs font-medium text-gray-800">6-8分：<span class="text-blue-600 font-bold">"良好"级别</span></p>
                                     <p class="text-xs text-gray-600">可获中级抽奖池奖励，最高500元现金</p>
                                 </div>
                             </div>
@@ -579,7 +781,7 @@
                                     <i class="ri-star-line text-white text-xs"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-medium text-gray-800">低于60分：<span class="text-gray-600 font-bold">"一般"级别</span></p>
+                                    <p class="text-xs font-medium text-gray-800">低于6分：<span class="text-gray-600 font-bold">"一般"级别</span></p>
                                     <p class="text-xs text-gray-600">仅可获初级抽奖池奖励，最高100元现金</p>
                                 </div>
                             </div>
@@ -597,7 +799,7 @@
                     <div class="flex items-center justify-between py-1 border-b border-gray-200">
                         <div class="flex items-center">
                             <i class="ri-thumb-down-line mr-2 text-gray-600 text-sm"></i>
-                            <span class="text-xs text-gray-600">每次空调相关差评，扣减20分</span>
+                            <span class="text-xs text-gray-600">每次空调相关差评，扣减2分</span>
                         </div>
                         <div class="flex items-center">
                             <span class="text-xs text-gray-600 mr-1">差评数:</span>
@@ -612,7 +814,7 @@
                                 <span class="text-xs text-gray-600">活动期间完单数不足60单</span>
                             </div>
                             <div class="text-xs text-gray-500 mt-1 ml-6">
-                                活动结束时每差1单，扣减20分
+                                活动结束时每差1单，扣减2分
                             </div>
                         </div>
                         <div class="flex items-center">
